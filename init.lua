@@ -518,6 +518,7 @@ advtrains.register_wagon("boat", {
 	wagon_width=5,
 	drops={"default:steelblock 4"},
 	horn_sound = "linetrack_boat_horn",
+	offtrack = "!!! Boat off line !!!",
 	custom_on_destroy = function(self)
 		if (self.sound_loop_handle) then
 			minetest.sound_stop(self.sound_loop_handle) --don't loop forever D:
@@ -677,6 +678,7 @@ advtrains.register_wagon("bus", {
 	wagon_width=3,
 	drops={"default:steelblock 4"},
 	horn_sound = "linetrack_boat_horn",
+	offtrack = "!!! Bus off road !!!",
 }, "Bus", "linetrack_tcb.png")
 
 minetest.register_node("linetrack:invisible_platform", {
