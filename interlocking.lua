@@ -2,14 +2,14 @@ local S = core.get_translator("linetrack")
 
 local setaspectf = function(prefix)
 	return function(pos, node, asp)
-		if not asp.main.free then
-			if asp.shunt.free then
+		if asp.main == 0 then
+			if asp.shunt then
 				advtrains.ndb.swap_node(pos, { name = prefix .. "_shunt", param2 = node.param2 })
 			else
 				advtrains.ndb.swap_node(pos, { name = prefix .. "_danger", param2 = node.param2 })
 			end
 		else
-			if asp.dst.free and asp.main.speed == -1 then
+			if not asp.dst or asp.dst == -1 then
 				advtrains.ndb.swap_node(pos, { name = prefix .. "_free", param2 = node.param2 })
 			else
 				advtrains.ndb.swap_node(pos, { name = prefix .. "_slow", param2 = node.param2 })
