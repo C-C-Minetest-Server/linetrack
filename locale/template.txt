@@ -1,0 +1,25 @@
+# textdomain: linetrack
+
+##[ init.lua ]##
+Water Line Track=
+Line Track=
+Road Line Track=
+Road Line Track on Slope (lower)=
+Road Line Track on Slope (upper)=
+Road Line Track on Slab=
+LuaAutomation ATC Line=
+Station/Stop Line=
+Watertrack ATC controller=
+Roadtrack ATC controller=
+!!! Boat off line !!!=
+!!! Bus off road !!!=
+Invisible Platform=
+Lane Platform=
+
+##[ interlocking.lua ]##
+Generic Main Signal=
+Road Main Signal=
+Line Circuit Break=
+Road Circuit Break=
+Point Speed Restriction Water Track=
+Point Speed Restriction Road Track=
