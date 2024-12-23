@@ -289,7 +289,7 @@ if atlatc ~= nil then
 								-- This event is *required* to run synchronously, because it might set the ars_disable flag on the train and add LZB checkpoints,
 								-- although this is generally discouraged because this happens right in a train step
 								-- At this moment, I am not aware whether this may cause side effects, and I must encourage users not to do expensive calculations here.
-								r.fire_event(pos, evtdata, {train_id = train_id, train = train, index = index, lzbdata = lzbdata})
+								atlatc.rail.fire_event(pos, evtdata, {train_id = train_id, train = train, index = index, lzbdata = lzbdata})
 							end
 						end
 					end,
