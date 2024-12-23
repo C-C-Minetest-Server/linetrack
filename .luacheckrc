@@ -1,4 +1,4 @@
-globals = "linetrack"
+globals = {"linetrack"}
 
 read_globals = {
     "DIR_DELIM", "INIT",
