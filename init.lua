@@ -546,7 +546,7 @@ advtrains.register_wagon("boat", {
 		}
 	},
 	assign_to_seat_group = { "pass", "dstand" },
-	door_entry = { -1, 1 },
+	door_entry = { -3 },
 	visual_size = { x = 1, y = 1 },
 	wagon_span = 2,
 	collisionbox = { -2.0, -3.0, -2.0, 2.0, 4.0, 2.0 },
