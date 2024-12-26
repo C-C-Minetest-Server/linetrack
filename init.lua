@@ -610,38 +610,38 @@ register_wagon("boat", {
 			if delta >= self.rev_tmr then
 				self.rev_tmr = nil
 				if self.rev_high then
-					self.sound_loop_handle = core.sound_play({ name = "linetrack_boat_idle_high", gain = 1 },
-						{ object = self.object, loop = true })
+					core.sound_play({ name = "linetrack_boat_idle_high", gain = 1 }, { object = self.object})
+					self.rev_start = core.get_us_time()
+					self.rev_tmr = 2.8 * 1000000
 				else
-					self.sound_loop_handle = core.sound_play({ name = "linetrack_boat_idle_low", gain = 1 },
-						{ object = self.object, loop = true })
+					core.sound_play({ name = "linetrack_boat_idle_low", gain = 1 }, { object = self.object})
+					self.rev_start = core.get_us_time()
+					self.rev_tmr = 2.1 * 1000000
 				end
 			end
 		elseif velocity > 0 then
-			if self.sound_loop_handle == nil then
-				if velocity > 5 then
-					self.sound_loop_handle = core.sound_play({ name = "linetrack_boat_idle_high", gain = 1 },
-						{ object = self.object, loop = true })
-				else
-					self.sound_loop_handle = core.sound_play({ name = "linetrack_boat_idle_low", gain = 1 },
-						{ object = self.object, loop = true })
-				end
-				return
-			end
 			if velocity ~= old_velocity then
 				if old_velocity < 5 and velocity > 5 then
-					core.sound_stop(self.sound_loop_handle)
-					self.sound_loop_handle = nil
 					core.sound_play({ name = "linetrack_boat_revup", gain = 1 }, { object = self.object })
 					self.rev_start = core.get_us_time()
 					self.rev_tmr = 2813000
 					self.rev_high = true
 				elseif old_velocity > 5 and velocity < 5 then
-					core.sound_stop(self.sound_loop_handle)
-					self.sound_loop_handle = nil
 					core.sound_play({ name = "linetrack_boat_revdown", gain = 1 }, { object = self.object })
 					self.rev_start = core.get_us_time()
 					self.rev_tmr = 373000
+					self.rev_high = false
+				end
+			elseif self.rev_start and self.rev_tmr and (core.get_us_time() - self.rev_start) >= self.rev_tmr then
+				if velocity > 5 then
+					core.sound_play({ name = "linetrack_boat_idle_high", gain = 1 }, { object = self.object})
+					self.rev_start = core.get_us_time()
+					self.rev_tmr = 2.8 * 1000000
+					self.rev_high = true
+				else
+					core.sound_play({ name = "linetrack_boat_idle_low", gain = 1 }, { object = self.object})
+					self.rev_start = core.get_us_time()
+					self.rev_tmr = 2.1 * 1000000
 					self.rev_high = false
 				end
 			end
