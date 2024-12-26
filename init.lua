@@ -734,7 +734,7 @@ register_wagon("bus", {
 	assign_to_seat_group = { "pass", "dstand" },
 	door_entry = { -1, 1 },
 	visual_size = { x = 1, y = 1, z = 1 },
-	use_texture_alpha = "blend",
+	use_texture_alpha = true,
 	backface_culling = false,
 	wagon_span = 3,
 	collisionbox = { -2.0, -3.0, -2.0, 2.0, 4.0, 2.0 },
