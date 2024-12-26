@@ -435,7 +435,18 @@ local exhaust_particle_spawner_base = {
 	texture = "smoke_puff.png",
 }
 
-advtrains.register_wagon("boat", {
+local register_wagon = advtrains.register_wagon
+if core.global_exists("advtrains_attachment_offset_patch") then
+	register_wagon = function(name, wagon, ...)
+		advtrains_attachment_offset_patch.setup_advtrains_wagon(wagon)
+		for _, seat in pairs(wagon.seats) do
+			seat.view_offset = nil
+		end
+		return advtrains.register_wagon(name, wagon, ...)
+	end
+end
+
+register_wagon("boat", {
 	mesh = "linetrack_boat.b3d",
 	textures = {
 		"doors_door_steel.png",             --y
@@ -638,7 +649,7 @@ advtrains.register_wagon("boat", {
 	end,
 }, "Boat", "linetrack_boat_inv.png")
 
-advtrains.register_wagon("bus", {
+register_wagon("bus", {
 	mesh = "linetrack_bus.b3d",
 	textures = {
 		"linetrack_bus.png",

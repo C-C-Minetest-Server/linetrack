@@ -24,6 +24,8 @@ read_globals = {
     "atlatc",
     "attrans",
 
+    "advtrains_attachment_offset_patch",
+
     table = {
         fields = {
             "copy",
