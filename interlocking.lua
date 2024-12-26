@@ -194,14 +194,14 @@ local adefunc = function()
 		end,
 		on_receive_fields = function(pos, _, fields, player)
 			local pname = player:get_player_name()
-			if not minetest.check_player_privs(pname, { interlocking = true }) then
-				minetest.chat_send_player(pname,
+			if not core.check_player_privs(pname, { interlocking = true }) then
+				core.chat_send_player(pname,
 					attrans("You are not allowed to configure this track without the @1 privilege.", "interlocking"))
 				return
 			end
-			if minetest.is_protected(pos, pname) then
-				minetest.chat_send_player(pname, attrans("You are not allowed to configure this track."))
-				minetest.record_protection_violation(pos, pname)
+			if core.is_protected(pos, pname) then
+				core.chat_send_player(pname, attrans("You are not allowed to configure this track."))
+				core.record_protection_violation(pos, pname)
 				return
 			end
 			if fields.npr then

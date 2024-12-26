@@ -252,7 +252,7 @@ advtrains.register_tracks("roadline", {
 }, slab_preset)
 
 if atlatc ~= nil then
-	local lua_rail_def = minetest.registered_nodes["advtrains_luaautomation:dtrack_st"]
+	local lua_rail_def = core.registered_nodes["advtrains_luaautomation:dtrack_st"]
 	local function gen_additional_def(track_type)
 		return function()
 			return {
