@@ -252,57 +252,17 @@ advtrains.register_tracks("roadline", {
 }, slab_preset)
 
 if atlatc ~= nil then
-	local function foo(track_type)
+	local lua_rail_def = minetest.registered_nodes["advtrains_luaautomation:dtrack_st"]
+	local function gen_additional_def(track_type)
 		return function()
 			return {
 				after_place_node = atlatc.active.after_place_node,
 				after_dig_node = atlatc.active.after_dig_node,
-				on_receive_fields = function(pos, ...)
-					atlatc.active.on_receive_fields(pos, ...)
-					
-					--set arrowconn (for ATC)
-					local ph=minetest.pos_to_string(pos)
-					local _, conns_info=advtrains.get_rail_info_at(pos, advtrains.all_tracktypes)
-					local nodeent = atlatc.active.nodes[ph]
-					if nodeent then
-						nodeent.arrowconn=conns_info[1].c -- luacheck: ignore
-					end
-				end,
+				on_receive_fields = lua_rail_def.on_receive_fields,
 
-				advtrains = {
-					on_train_enter = function(pos, train_id)
-						--do async. Event is fired in train steps
-						atlatc.interrupt.add(0, pos, { type = "train", train = true, id = train_id })
-					end,
-					on_train_approach = function(pos, train_id, train, index, has_entered, lzbdata)
-						-- Insert an event only if the rail indicated that it supports approach callbacks
-						local ph=minetest.pos_to_string(pos)
-						local railtbl = atlatc.active.nodes[ph]
-						-- uses a "magic variable" in the local environment of the node
-						-- This hack is necessary because code might not be prepared to get approach events...
-						if railtbl and railtbl.data and railtbl.data.__approach_callback_mode then
-							local acm = railtbl.data.__approach_callback_mode
-							local in_arrow = (train.path_cn[index] == 1)
-							if acm==2 or (acm==1 and in_arrow) then
-								local evtdata = {type="approach", approach=true, id=train_id, has_entered = has_entered,
-										_train_id = train_id, _train_arrow = in_arrow} -- reuses code from train_enter
-								-- This event is *required* to run synchronously, because it might set the ars_disable flag on the train and add LZB checkpoints,
-								-- although this is generally discouraged because this happens right in a train step
-								-- At this moment, I am not aware whether this may cause side effects, and I must encourage users not to do expensive calculations here.
-								atlatc.rail.fire_event(pos, evtdata, {train_id = train_id, train = train, index = index, lzbdata = lzbdata})
-							end
-						end
-					end,
-				},
-				luaautomation = {
-					fire_event = atlatc.rail.fire_event
-				},
-				digiline = {
-					receptor = {},
-					effector = {
-						action = atlatc.active.on_digiline_receive
-					},
-				},
+				advtrains = lua_rail_def.advtrains,
+				luaautomation = lua_rail_def.luaautomation,
+				digiline = lua_rail_def.digiline,
 				groups = {
 					advtrains_track = 1,
 					[track_type] = 1,
@@ -326,7 +286,7 @@ if atlatc ~= nil then
 		formats = {},
 		liquids_pointable = true,
 		suitable_substrate = suitable_substrate,
-		get_additional_definiton = foo("advtrains_track_waterline"),
+		get_additional_definiton = gen_additional_def("advtrains_track_waterline"),
 	}, advtrains.trackpresets.t_30deg_straightonly)
 
 	advtrains.register_tracks("roadline", {
@@ -338,7 +298,7 @@ if atlatc ~= nil then
 		description = S("LuaAutomation ATC Line"),
 		formats = {},
 		liquids_pointable = true,
-		get_additional_definiton = foo("advtrains_track_roadline"),
+		get_additional_definiton = gen_additional_def("advtrains_track_roadline"),
 	}, advtrains.trackpresets.t_30deg_straightonly)
 end
 
