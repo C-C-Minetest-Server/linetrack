@@ -53,6 +53,10 @@ for typ, prts in pairs({
 		drawtype = "mesh",
 		mesh = "linetrack_signal.obj",
 		tiles = { "linetrack_signal_" .. typ .. ".png" },
+		selection_box = {
+			type = "fixed",
+			fixed = { -5/16, -5/16, -5/16, 5/16, 5/16, 5/16 }
+		},
 
 		paramtype = "light",
 		sunlight_propagates = true,
@@ -129,6 +133,10 @@ core.register_node("linetrack:tcb_node", {
 	description = S("Line Circuit Break"),
 	sunlight_propagates = true,
 	liquids_pointable = true,
+	selection_box = {
+		type = "fixed",
+		fixed = { -5/16, -5/16, -5/16, 5/16, 5/16, 5/16 }
+	},
 	groups = {
 		cracky = 3,
 		not_blocking_trains = 1,
