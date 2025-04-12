@@ -23,10 +23,10 @@ advtrains.register_tracks("waterline", {
 	shared_texture = "linetrack_line.png",
 	description = S("Water Line Track"),
 	formats = {},
-	liquids_pointable = true,
 	suitable_substrate = suitable_substrate,
 	get_additional_definiton = function()
 		return {
+			liquids_pointable = true,
 			groups = {
 				advtrains_track = 1,
 				advtrains_track_waterline = 1,
@@ -54,10 +54,10 @@ advtrains.register_tracks("waterline", {
 		vst32 = { true },
 		vst33 = { true }
 	},
-	liquids_pointable = true,
 	suitable_substrate = suitable_substrate,
 	get_additional_definiton = function()
 		return {
+			liquids_pointable = true,
 			groups = {
 				advtrains_track = 1,
 				advtrains_track_waterline = 1,
@@ -97,6 +97,7 @@ advtrains.register_tracks("roadline", {
 local function conns(c1, c2, r1, r2) return { { c = c1, y = r1 }, { c = c2, y = r2 } } end
 
 local slab_preset = {
+	v25_format = true,
 	regstep = 1,
 	variant = {
 		st = {
@@ -122,15 +123,17 @@ local slab_preset = {
 }
 
 local slope1_preset = {
+	v25_format = true,
 	regstep = 1,
 	variant = {
 		vst1 = {
-			conns = conns(8, 0, 0, 0.5),
-			rail_y = 0.25,
-			desc = "slope (lower)",
-			tpdouble = true,
-			tpsingle = true,
-			trackworker = "vst1",
+			-- conns = conns(8, 0, 0, 0.5),
+			-- rail_y = 0.25,
+			-- desc = "slope (lower)",
+			-- tpdouble = true,
+			-- tpsingle = true,
+			-- trackworker = "vst1",
+			conns = conns(8,0,0,0.5), rail_y = 0.25, desc = "steep uphill 1/2", slope=true
 		},
 	},
 	regtp = true,
@@ -140,15 +143,17 @@ local slope1_preset = {
 }
 
 local slope2_preset = {
+	v25_format = true,
 	regstep = 1,
 	variant = {
 		vst2 = {
-			conns = conns(8, 0, 0.5, 1),
-			rail_y = 0.75,
-			desc = "slope (lower)",
-			tpdouble = true,
-			tpsingle = true,
-			trackworker = "vst2",
+			-- conns = conns(8, 0, 0.5, 1),
+			-- rail_y = 0.75,
+			-- desc = "slope (lower)",
+			-- tpdouble = true,
+			-- tpsingle = true,
+			-- trackworker = "vst2",
+			conns = conns(8,0,0.5,1), rail_y = 0.75, desc = "steep uphill 2/2", slope=true
 		},
 	},
 	regtp = true,
@@ -253,13 +258,15 @@ advtrains.register_tracks("roadline", {
 
 if atlatc ~= nil then
 	local lua_rail_def = core.registered_nodes["advtrains_luaautomation:dtrack_st"]
-	local function gen_additional_def(track_type)
+	local function gen_additional_def(track_type, on_water)
 		return function()
 			return {
 				after_place_node = atlatc.active.after_place_node,
 				after_dig_node = atlatc.active.after_dig_node,
 				on_receive_fields = lua_rail_def.on_receive_fields,
 
+
+				liquids_pointable = on_water,
 				advtrains = lua_rail_def.advtrains,
 				luaautomation = lua_rail_def.luaautomation,
 				digiline = lua_rail_def.digiline,
@@ -286,7 +293,7 @@ if atlatc ~= nil then
 		formats = {},
 		liquids_pointable = true,
 		suitable_substrate = suitable_substrate,
-		get_additional_definiton = gen_additional_def("advtrains_track_waterline"),
+		get_additional_definiton = gen_additional_def("advtrains_track_waterline", true),
 	}, advtrains.trackpresets.t_30deg_straightonly)
 
 	advtrains.register_tracks("roadline", {
@@ -334,7 +341,7 @@ if core.get_modpath("advtrains_line_automation") ~= nil then
 		formats = {},
 		liquids_pointable = true,
 		suitable_substrate = suitable_substrate,
-		get_additional_definiton = foo("advtrains_track_waterline"),
+		get_additional_definiton = foo("advtrains_track_waterline", true),
 	}, advtrains.trackpresets.t_30deg_straightonly)
 
 	advtrains.register_tracks("roadline", {
@@ -739,4 +746,8 @@ core.register_node("linetrack:lane_platform", {
 	paramtype2 = "facedir",
 	paramtype = "light",
 	sunlight_propagates = true,
+})
+
+core.override_item("linetrack:watertrack_placer", {
+	liquids_pointable = true,
 })
