@@ -31,8 +31,8 @@ advtrains.register_tracks("roadline", {
     end
 }, advtrains.ap.t_30deg_flat)
 
-advtrains.register_tracks("waterline", {
-    nodename_prefix = "linetrack:watertrack_atc",
+advtrains.register_tracks("roadline", {
+    nodename_prefix = "linetrack:roadtrack_atc",
     texture_prefix = "advtrains_rtrack_atc",
     models_prefix = "advtrains_ltrack",
     models_suffix = ".obj",
