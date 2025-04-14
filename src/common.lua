@@ -4,6 +4,8 @@
 -- Copyright (C) 2025  1F616EMO
 -- SPDX-License-Identifier: LGPL-2.1-or-later
 
+local S = core.get_translator("linetrack")
+
 for _, mod in ipairs({
     "luaautomation",
     "line_automation",
@@ -31,3 +33,22 @@ if core.global_exists("advtrains_attachment_offset_patch") then
         return advtrains.register_wagon(name, wagon, ...)
     end
 end
+
+core.register_node("linetrack:invisible_platform", {
+    description = S("Invisible Platform"),
+    groups = { cracky = 1, not_blocking_trains = 1, platform = 1 },
+    drawtype = "airlike",
+    inventory_image = "linetrack_invisible_platform.png",
+    wield_image = "linetrack_invisible_platform.png",
+    walkable = false,
+    node_box = {
+        type = "fixed",
+        fixed = {
+            { -0.5, -0.1, -0.1, 0.5, 0,    0.5 },
+            { -0.5, -0.5, 0,    0.5, -0.1, 0.5 }
+        },
+    },
+    paramtype2 = "facedir",
+    paramtype = "light",
+    sunlight_propagates = true,
+})
