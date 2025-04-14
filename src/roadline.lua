@@ -477,3 +477,20 @@ do
 
     linetrack.regiser_roadline_for_surface("bakedclay_black", description, texture)
 end
+
+core.register_node("linetrack:lane_platform", {
+    description = S("Lane Platform"),
+    groups = { cracky = 1, not_blocking_trains = 1, platform = 1 },
+    drawtype = "nodebox",
+    tiles = { "linetrack_lane_platform.png", "linetrack_transparent.png" },
+    node_box = {
+        type = "fixed",
+        fixed = { -0.5, -0.5, -0.5, 0.5, -0.49, 0.5 }
+    },
+    wield_image = "linetrack_lane_platform.png",
+    inventory_image = "linetrack_lane_platform.png",
+    walkable = false,
+    paramtype2 = "facedir",
+    paramtype = "light",
+    sunlight_propagates = true,
+})
