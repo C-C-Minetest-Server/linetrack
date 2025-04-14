@@ -275,6 +275,10 @@ function linetrack.regiser_roadline_for_surface(surface_name, display_name, text
         end
     }, slope1_preset)
 
+    core.override_item("linetrack:roadtrack_slope1" .. surface_name .. "_placer", {
+        inventory_image = "linetrack_road_slope1_placer.png^[mask:" .. texture
+    })
+
     advtrains.register_tracks("roadline", {
         nodename_prefix = "linetrack:roadtrack_slope2" .. surface_name,
         texture_prefix = "linetrack_road_slope2",
@@ -308,6 +312,10 @@ function linetrack.regiser_roadline_for_surface(surface_name, display_name, text
         end
     }, slope2_preset)
 
+    core.override_item("linetrack:roadtrack_slope2" .. surface_name .. "_placer", {
+        inventory_image = "linetrack_road_slope2_placer.png^[mask:" .. texture
+    })
+
     advtrains.register_tracks("roadline", {
         nodename_prefix = "linetrack:roadtrack_slab" .. surface_name,
         texture_prefix = "linetrack_road_slab",
@@ -336,8 +344,12 @@ function linetrack.regiser_roadline_for_surface(surface_name, display_name, text
         end
     }, slab_preset)
 
-    advtrains.register_tracks("waterline", {
-        nodename_prefix = "linetrack:watertrack_slab_atc" .. surface_name,
+    core.override_item("linetrack:roadtrack_slab" .. surface_name .. "_placer", {
+        inventory_image = "linetrack_road_slab_placer.png^[mask:" .. texture
+    })
+
+    advtrains.register_tracks("roadline", {
+        nodename_prefix = "linetrack:roadtrack_slab_atc" .. surface_name,
         texture_prefix = "linetrack_road_slab",
         models_prefix = "advtrains_ltrack",
         models_suffix = ".obj",
@@ -346,6 +358,10 @@ function linetrack.regiser_roadline_for_surface(surface_name, display_name, text
         formats = {},
         get_additional_definiton = advtrains.atc_function
     }, advtrains.trackpresets.t_30deg_straightonly)
+
+    core.override_item("linetrack:roadtrack_slab_atc" .. surface_name .. "_placer", {
+        inventory_image = "linetrack_road_slab_placer.png^[mask:" .. texture .. "^advtrains_rtrack_atc_placer.png"
+    })
 
     -- Special tracks for slab
 
