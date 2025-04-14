@@ -14,7 +14,6 @@ for _, name in ipairs({
     "waterline_boat",
 
     "roadline",
-    "roadline_platforms",
     "roadline_bus",
 
     "interlocking",
