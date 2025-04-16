@@ -147,6 +147,7 @@ core.register_node("linetrack:tcb_node", {
 	on_rightclick = at_tcb.on_rightclick,
 	can_dig = at_tcb.can_dig,
 	after_dig_node = at_tcb.after_dig_node,
+	use_texture_alpha = "blend",
 })
 
 core.register_node("linetrack:road_tcb_node", {
