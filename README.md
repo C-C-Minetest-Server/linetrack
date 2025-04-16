@@ -1,3 +1,8 @@
+> [!CAUTION]
+> This branch (`pre-2.5`) is only compactible with Advtrains version 2.4 or older.
+> No new features will be added to this branch, and bugs are not actively fixed. 
+> It is recommened to upgrade Advtrains and use the `master` branch. 
+
 =============================================
 Means of Transport Tracking Lines (linetrack)
 =============================================
