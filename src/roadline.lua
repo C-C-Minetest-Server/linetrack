@@ -351,9 +351,9 @@ function linetrack.regiser_roadline_for_surface(surface_name, display_name, text
     advtrains.register_tracks("roadline", {
         nodename_prefix = "linetrack:roadtrack_slab_atc" .. surface_name,
         texture_prefix = "linetrack_road_slab",
-        models_prefix = "advtrains_ltrack",
+        models_prefix = "advtrains_rtracks",
         models_suffix = ".obj",
-        shared_texture = "linetrack_atc.png",
+        shared_texture = "[combine:32x16:0,0=" .. texture .. ":16,0=(linetrack_road_line.png^linetrack_atc.png):",
         description = S("Road Line Track Slab ATC Controller on @1", display_name),
         formats = {},
         get_additional_definiton = advtrains.atc_function
