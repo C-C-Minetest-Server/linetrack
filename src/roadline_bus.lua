@@ -5,6 +5,7 @@
 -- SPDX-License-Identifier: LGPL-2.1-or-later
 
 local S = core.get_translator("linetrack")
+local attrans = advtrains.translate or attrans
 
 linetrack.register_wagon("bus", {
     mesh = "linetrack_bus.b3d",
